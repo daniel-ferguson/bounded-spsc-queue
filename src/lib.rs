@@ -4,6 +4,7 @@ use core::alloc::Layout;
 use core::{mem, ptr};
 use std::alloc;
 use std::cell::Cell;
+use std::fmt;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 use std::usize;
@@ -60,6 +61,12 @@ pub struct Consumer<T> {
 /// A handle to the queue which allows adding values onto the buffer
 pub struct Producer<T> {
     buffer: Arc<Buffer<T>>,
+}
+
+impl<T> fmt::Debug for Producer<T> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Producer")
+    }
 }
 
 unsafe impl<T: Send> Send for Consumer<T> {}
